@@ -1,0 +1,30 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoModificable %}
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container position-relative">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6">
+                        <div class="text-center text-white">
+                            <!-- Page heading-->
+                            <h1 class="mb-5">Agregar Profesores</h1>
+                            {% if miFormulario3.errors %}
+                            <p style="color:red">Los datos son erroneos, por favor revisar</p>
+                            {% endif %}
+                            <form action="" method="POST">{% csrf_token %}
+                                <table>
+                                    {{ miFormulario3.as_table }}
+                                </table>
+                                <input type="submit", value="Enviar">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Icons Grid-->
+ 
+
+{% endblock %}
+        
