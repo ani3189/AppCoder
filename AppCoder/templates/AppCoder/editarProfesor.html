@@ -1,0 +1,28 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoModificable %}
+<header class="masthead">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h1 class="mb-5">Formulario para editar profesores</h1>
+                    <p>
+                        {% if miFormulario.error %}
+                        <p style="color:red">Están mal los datos</p>
+                        {% endif %}
+                        <form action="" method="POST"> {%csrf_token%}
+                            <table>
+                                {{miFormulario.as_table}}
+                            </table>
+                            <input type="submit", value="Enviar", style="color:blue">
+                        </form>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock %}

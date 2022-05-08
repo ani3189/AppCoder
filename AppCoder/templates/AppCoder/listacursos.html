@@ -1,0 +1,37 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoModificable %}
+<header class="masthead">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h1 class="mb-5">Resultado Cursos</h1>
+                    <p>
+                        <ul>
+                            {%for curso in object_list %}
+                            <li>
+                                <p>
+                                    Nombre: {{curso.nombre}}
+                                </p>
+                                <p style="background-color: aliceblue;">
+                                    <a href="{% url 'Detail' curso.id %}">ver</a>
+                                    <a href="{% url 'Edit' curso.id %}">editar</a>
+                                    <a href="{% url 'Delete' curso.id %}">borrar</a>
+                                </p>
+                            </li>
+
+                            {% endfor %}
+                        </ul>
+                        <a style="background-color: aliceblue;" href="{% url 'New' %}">crear</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+{% endblock %}

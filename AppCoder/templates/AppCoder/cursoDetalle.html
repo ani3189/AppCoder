@@ -1,0 +1,22 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoModificable %}
+<header class="masthead">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h1 class="mb-5">Detalle Curso</h1>
+                    <p> Nombre de curso: <i>{{curso.nombre}}</i></p>
+                    <p> Camada de curso: <i>{{curso.camada}}</i></p>
+                    <a href="{% url 'ListaCursos' %}">volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+{% endblock %}

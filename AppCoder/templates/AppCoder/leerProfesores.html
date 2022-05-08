@@ -1,0 +1,33 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoModificable %}
+<header class="masthead">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h1 class="mb-5">Lista profesores</h1>
+                    <p>
+                        Los profesores son 
+                        {% for p in profesores %}
+                        <li>{{p}} 
+                        <button>
+                            <a href="{% url 'EliminarProfesor' p.nombre %}">Borrar</a>
+                        </button>
+                        <button>
+                            <a href="{% url 'EditarProfesor' p.nombre %}">Editar</a>
+                        </button>
+                        </li>
+                        {% endfor %}
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+{% endblock %}
