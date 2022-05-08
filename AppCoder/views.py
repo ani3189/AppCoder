@@ -10,6 +10,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def login_request(request):
@@ -92,6 +93,7 @@ def estudiantes(request):
 
 def enrtegables(request):
     return render(request, "AppCoder/entregables.html")
+
 @login_required
 def busqueda(request):
     return render(request, "AppCoder/busqueda.html")
@@ -138,7 +140,7 @@ def editarProfesores(request, profesor_nombre):
         'mail':profesor.mail, 'profesion':profesor.profesion})
     return render(request, "AppCoder/editarProfesor.html", {'miFormulario':miFormulario, 'profesor_nombre':profesor_nombre})
 
-class CursoList (ListView):
+class CursoList (LoginRequiredMixin,ListView):
     model = Curso
     template_name = "AppCoder/listacursos.html"
 
