@@ -1,4 +1,3 @@
-from multiprocessing import AuthenticationError
 from django.http import HttpResponse
 from django.template import Template, Context, loader
 from django.shortcuts import render
@@ -9,10 +8,23 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            user=form.cleaned_data['username']
+            form.save()
+            return render (request,"AppCoder/inicio.html", {'mensaje':"Usuario creado"})
+    else:
+        form = RegistroForm()
+
+    return render (request, 'AppCoder/registrarse.html', {'form':form})
+    
 def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data = request.POST)
@@ -161,4 +173,23 @@ class CursoUpdate (UpdateView):
 class CursoDelete (DeleteView):
     model = Curso
     success_url = "/AppCoder/curso/lista"
-    
+
+
+def editarUser(request):
+    usuario = request.user
+    if request.method == "POST":
+        miFormulario = RegistroForm(request.POST)
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+
+            usuario.username = informacion['username']
+            usuario.mail = informacion['mail']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password1']
+
+            usuario.save() 
+
+            return render (request, "AppCoder/inicio.html")
+    else:
+        miFormulario= RegistroForm(initial={'username':usuario.username})
+    return render(request, "AppCoder/editarUsuario.html", {'miFormulario':miFormulario, 'usuario':usuario.username})

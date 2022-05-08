@@ -1,0 +1,29 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoModificable %}
+<header class="masthead">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h1 class="mb-5">Formulario para editar usuarios</h1>
+                    <p>
+                        {% if miFormulario.error %}
+                        <p style="color:red">Están mal los datos</p>
+                        {% endif %}
+                        <form action="" method="POST"> {%csrf_token%}
+                            <table>
+                                {{miFormulario.as_table}}
+                            </table>
+                            <input type="submit", value="Enviar", style="color:blue">
+                        </form>
+                        NO USAR. HAY QUE MODIFICAR EL USUARIO Y NO TRAE EL MAIL FIELD
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock %}

@@ -20,5 +20,7 @@ urlpatterns = [
     path(r'^editar/(?P<pk>\d+)$', views.CursoUpdate.as_view(), name='Edit'),
     path(r'^borrar/(?P<pk>\d+)$', views.CursoDelete.as_view(), name='Delete'),
     path('login', views.login_request, name='Login'),
-    path('logout', LogoutView.as_view(template_name='AppCoder/logout.html'), name='Logout')
+    path('logout', LogoutView.as_view(template_name='AppCoder/logout.html'), name='Logout'),
+    path('registrarse', views.register, name='Registrarse'),
+    path("editarUsuario/>", views.editarUser, name="EditarUsuario"),
 ]
