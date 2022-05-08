@@ -1,4 +1,4 @@
-from dataclasses import field
+from multiprocessing import AuthenticationError
 from django.http import HttpResponse
 from django.template import Template, Context, loader
 from django.shortcuts import render
@@ -7,8 +7,28 @@ from .forms import *
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
+def login_request(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data = request.POST)
+        if form.is_valid():
+            usuario = form.cleaned_data.get('username')
+            contra = form.cleaned_data.get('password')
+
+            user = authenticate(username=usuario, password=contra)
+            if user:
+                login(request,user)
+                return render (request, "AppCoder/inicio.html", {'mensaje':f"Bienvenido {user}"})
+        else:
+            return render (request, "AppCoder/inicio.html", {'mensaje':"Error, datos incorrectos"})
+    else:
+        form = AuthenticationForm()
+
+    return render (request, "AppCoder/login.html", {'form':form})
 
 def inicio(request):
     return render(request, "AppCoder/inicio.html")
@@ -72,7 +92,7 @@ def estudiantes(request):
 
 def enrtegables(request):
     return render(request, "AppCoder/entregables.html")
-
+@login_required
 def busqueda(request):
     return render(request, "AppCoder/busqueda.html")
 
@@ -84,6 +104,7 @@ def buscar(request):
     else:
         respuesta = "no enviaste datos"
     return HttpResponse(respuesta)
+
 
 def listaProfesores(request):
     profesores = Profesor.objects.all()
